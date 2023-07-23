@@ -1,8 +1,12 @@
 import 'automaton.dart';
-import 'state.dart';
+import 'non_deterministic_state.dart';
 
-abstract class NonDeterministicAutomaton extends Automaton {
+abstract class NonDeterministicAutomaton
+    extends Automaton<NonDeterministicState> {
   NonDeterministicAutomaton({required super.states, required super.alphabet});
 
-  Set<State> extendedTransition(State state, String input);
+  Set<NonDeterministicState> extendedTransition(
+    NonDeterministicState state,
+    String input,
+  );
 }

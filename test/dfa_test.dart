@@ -1,17 +1,17 @@
-import 'package:automatons/abstractions/invalid_input_exception.dart';
-import 'package:automatons/abstractions/state.dart';
+import 'package:automatons/abstractions/deterministic_state.dart';
+import 'package:automatons/abstractions/exceptions.dart';
 import 'package:automatons/implementations/dfa.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('DFA over the set {a, b} that contains the substring "aabb"', () {
-    final q0 = State(name: 'q0', isInitial: true);
-    final q1 = State(name: 'q1');
-    final q2 = State(name: 'q2');
-    final q3 = State(name: 'q3');
-    final q4 = State(name: 'q4', isFinal: true);
+    final q0 = DeterministicState(name: 'q0', isInitial: true);
+    final q1 = DeterministicState(name: 'q1');
+    final q2 = DeterministicState(name: 'q2');
+    final q3 = DeterministicState(name: 'q3');
+    final q4 = DeterministicState(name: 'q4', isFinal: true);
 
-    q0.transition = (input) {
+    q0.setTransition((input) {
       switch (input) {
         case 'a':
           return q1;
@@ -20,9 +20,9 @@ void main() {
         default:
           throw InvalidInputException();
       }
-    };
+    });
 
-    q1.transition = (input) {
+    q1.setTransition((input) {
       switch (input) {
         case 'a':
           return q2;
@@ -31,9 +31,9 @@ void main() {
         default:
           throw InvalidInputException();
       }
-    };
+    });
 
-    q2.transition = (input) {
+    q2.setTransition((input) {
       switch (input) {
         case 'a':
           return q2;
@@ -42,9 +42,9 @@ void main() {
         default:
           throw InvalidInputException();
       }
-    };
+    });
 
-    q3.transition = (input) {
+    q3.setTransition((input) {
       switch (input) {
         case 'a':
           return q1;
@@ -53,9 +53,9 @@ void main() {
         default:
           throw InvalidInputException();
       }
-    };
+    });
 
-    q4.transition = (_) => q4;
+    q4.setTransition((_) => q4);
 
     final dfa1 = DFA(
       states: {q0, q1, q2, q3, q4},
@@ -126,13 +126,13 @@ void main() {
 
   group('DFA over the set {a, b} that does not contains the substring "aabb"',
       () {
-    final q0 = State(name: 'q0', isFinal: true, isInitial: true);
-    final q1 = State(name: 'q1', isFinal: true);
-    final q2 = State(name: 'q2', isFinal: true);
-    final q3 = State(name: 'q3', isFinal: true);
-    final q4 = State(name: 'q4');
+    final q0 = DeterministicState(name: 'q0', isFinal: true, isInitial: true);
+    final q1 = DeterministicState(name: 'q1', isFinal: true);
+    final q2 = DeterministicState(name: 'q2', isFinal: true);
+    final q3 = DeterministicState(name: 'q3', isFinal: true);
+    final q4 = DeterministicState(name: 'q4');
 
-    q0.transition = (input) {
+    q0.setTransition((input) {
       switch (input) {
         case 'a':
           return q1;
@@ -141,9 +141,9 @@ void main() {
         default:
           throw InvalidInputException();
       }
-    };
+    });
 
-    q1.transition = (input) {
+    q1.setTransition((input) {
       switch (input) {
         case 'a':
           return q2;
@@ -152,9 +152,9 @@ void main() {
         default:
           throw InvalidInputException();
       }
-    };
+    });
 
-    q2.transition = (input) {
+    q2.setTransition((input) {
       switch (input) {
         case 'a':
           return q2;
@@ -163,9 +163,9 @@ void main() {
         default:
           throw InvalidInputException();
       }
-    };
+    });
 
-    q3.transition = (input) {
+    q3.setTransition((input) {
       switch (input) {
         case 'a':
           return q1;
@@ -174,9 +174,9 @@ void main() {
         default:
           throw InvalidInputException();
       }
-    };
+    });
 
-    q4.transition = (_) => q4;
+    q4.setTransition((_) => q4);
 
     final dfa2 = DFA(
       states: {q0, q1, q2, q3, q4},

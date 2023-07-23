@@ -1,10 +1,10 @@
 import 'state.dart';
 
-abstract class Automaton {
-  final Set<State> states;
+abstract class Automaton<StateType extends State> {
+  final Set<StateType> states;
   final Set<String> alphabet;
-  late final State initialState;
-  late final Set<State> finalStates;
+  late final StateType initialState;
+  late final Set<StateType> finalStates;
 
   Automaton({
     required this.states,

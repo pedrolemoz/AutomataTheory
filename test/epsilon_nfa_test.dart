@@ -1,59 +1,57 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:automatons/abstractions/constants.dart';
-import 'package:automatons/abstractions/state.dart';
+import 'package:automatons/abstractions/non_deterministic_state.dart';
 import 'package:automatons/implementations/episilon_nfa.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final q0 = State(name: 'q0', isInitial: true);
-  final q1 = State(name: 'q1');
-  final q2 = State(name: 'q2');
-  final q3 = State(name: 'q3');
-  final q4 = State(name: 'q4', isFinal: true);
-  final q5 = State(name: 'q5');
-  final q6 = State(name: 'q6');
-  final q7 = State(name: 'q7', isFinal: true);
+  final q0 = NonDeterministicState(name: 'q0', isInitial: true);
+  final q1 = NonDeterministicState(name: 'q1');
+  final q2 = NonDeterministicState(name: 'q2');
+  final q3 = NonDeterministicState(name: 'q3');
+  final q4 = NonDeterministicState(name: 'q4', isFinal: true);
+  final q5 = NonDeterministicState(name: 'q5');
+  final q6 = NonDeterministicState(name: 'q6');
+  final q7 = NonDeterministicState(name: 'q7', isFinal: true);
 
-  q0.transition = (input) {
+  q0.setTransition((input) {
     switch (input) {
       case epsilon:
         return {q1, q5};
       default:
-        return <State>{};
+        return {};
     }
-  };
+  });
 
-  q1.transition = (input) {
+  q1.setTransition((input) {
     switch (input) {
       case 'a':
         return {q2};
       default:
-        return <State>{};
+        return {};
     }
-  };
+  });
 
-  q2.transition = (input) {
+  q2.setTransition((input) {
     switch (input) {
       case 'b':
         return {q3};
       default:
-        return <State>{};
+        return {};
     }
-  };
+  });
 
-  q3.transition = (input) {
+  q3.setTransition((input) {
     switch (input) {
       case 'c':
         return {q4};
       default:
-        return <State>{};
+        return {};
     }
-  };
+  });
 
-  q4.transition = (input) => <State>{};
+  q4.setTransition((input) => {});
 
-  q5.transition = (input) {
+  q5.setTransition((input) {
     switch (input) {
       case 'a':
         return {q5};
@@ -62,20 +60,20 @@ void main() {
       case 'c':
         return {q5, q6};
       default:
-        return <State>{};
+        return {};
     }
-  };
+  });
 
-  q6.transition = (input) {
+  q6.setTransition((input) {
     switch (input) {
       case 'c':
         return {q7};
       default:
-        return <State>{};
+        return {};
     }
-  };
+  });
 
-  q7.transition = (input) => <State>{};
+  q7.setTransition((input) => {});
 
   final eNfa = EpsilonNFA(
     states: {q0, q1, q2, q3, q4, q5, q6, q7},

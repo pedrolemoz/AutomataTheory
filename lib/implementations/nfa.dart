@@ -1,5 +1,5 @@
 import '../abstractions/non_deterministic_automaton.dart';
-import '../abstractions/state.dart';
+import '../abstractions/non_deterministic_state.dart';
 
 class NFA extends NonDeterministicAutomaton {
   NFA({required super.states, required super.alphabet});
@@ -12,9 +12,12 @@ class NFA extends NonDeterministicAutomaton {
   }
 
   @override
-  Set<State> extendedTransition(State state, String input) {
+  Set<NonDeterministicState> extendedTransition(
+    NonDeterministicState state,
+    String input,
+  ) {
     if (input.isEmpty) return {state};
-    final possibleNextStates = state.transition(input[0]) as Set<State>;
+    final possibleNextStates = state.executeTransition(input[0]);
     if (possibleNextStates.isEmpty) return {};
     return possibleNextStates
         .map((nextState) => extendedTransition(nextState, input.substring(1)))

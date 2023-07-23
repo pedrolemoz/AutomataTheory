@@ -1,5 +1,5 @@
 import '../abstractions/deterministic_automaton.dart';
-import '../abstractions/state.dart';
+import '../abstractions/deterministic_state.dart';
 
 class DFA extends DeterministicAutomaton {
   DFA({required super.states, required super.alphabet});
@@ -12,10 +12,13 @@ class DFA extends DeterministicAutomaton {
   }
 
   @override
-  State extendedTransition(State state, String input) {
+  DeterministicState extendedTransition(
+    DeterministicState state,
+    String input,
+  ) {
     if (input.isEmpty) return state;
     return extendedTransition(
-      state.transition(input[0]),
+      state.executeTransition(input[0]),
       input.substring(1),
     );
   }

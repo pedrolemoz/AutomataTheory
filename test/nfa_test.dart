@@ -1,32 +1,32 @@
-import 'package:automatons/abstractions/state.dart';
+import 'package:automatons/abstractions/non_deterministic_state.dart';
 import 'package:automatons/implementations/nfa.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('NFA over the set {0, 1} that starts with the substring "10"', () {
-    final q0 = State(name: 'q0', isInitial: true);
-    final q1 = State(name: 'q1');
-    final q2 = State(name: 'q2', isFinal: true);
+    final q0 = NonDeterministicState(name: 'q0', isInitial: true);
+    final q1 = NonDeterministicState(name: 'q1');
+    final q2 = NonDeterministicState(name: 'q2', isFinal: true);
 
-    q0.transition = (input) {
+    q0.setTransition((input) {
       switch (input) {
         case '1':
           return {q1};
         default:
-          return <State>{};
+          return {};
       }
-    };
+    });
 
-    q1.transition = (input) {
+    q1.setTransition((input) {
       switch (input) {
         case '0':
           return {q2};
         default:
-          return <State>{};
+          return {};
       }
-    };
+    });
 
-    q2.transition = (_) => {q2};
+    q2.setTransition((_) => {q2});
 
     final nfa1 = NFA(
       states: {q0, q1, q2},
@@ -80,31 +80,31 @@ void main() {
   });
 
   group('NFA over the set {0, 1} that ends with the substring "11"', () {
-    final q0 = State(name: 'q0', isInitial: true);
-    final q1 = State(name: 'q1');
-    final q2 = State(name: 'q2', isFinal: true);
+    final q0 = NonDeterministicState(name: 'q0', isInitial: true);
+    final q1 = NonDeterministicState(name: 'q1');
+    final q2 = NonDeterministicState(name: 'q2', isFinal: true);
 
-    q0.transition = (input) {
+    q0.setTransition((input) {
       switch (input) {
         case '0':
           return {q0};
         case '1':
           return {q0, q1};
         default:
-          return <State>{};
+          return {};
       }
-    };
+    });
 
-    q1.transition = (input) {
+    q1.setTransition((input) {
       switch (input) {
         case '1':
           return {q2};
         default:
-          return <State>{};
+          return {};
       }
-    };
+    });
 
-    q2.transition = (_) => <State>{};
+    q2.setTransition((_) => {});
 
     final nfa2 = NFA(
       states: {q0, q1, q2},
@@ -202,41 +202,41 @@ void main() {
   });
 
   group('NFA over the set {a, b} that ends with the substring "bba"', () {
-    final q0 = State(name: 'q0', isInitial: true);
-    final q1 = State(name: 'q1');
-    final q2 = State(name: 'q2');
-    final q3 = State(name: 'q2', isFinal: true);
+    final q0 = NonDeterministicState(name: 'q0', isInitial: true);
+    final q1 = NonDeterministicState(name: 'q1');
+    final q2 = NonDeterministicState(name: 'q2');
+    final q3 = NonDeterministicState(name: 'q2', isFinal: true);
 
-    q0.transition = (input) {
+    q0.setTransition((input) {
       switch (input) {
         case 'a':
           return {q0};
         case 'b':
           return {q0, q1};
         default:
-          return <State>{};
+          return {};
       }
-    };
+    });
 
-    q1.transition = (input) {
+    q1.setTransition((input) {
       switch (input) {
         case 'b':
           return {q2};
         default:
-          return <State>{};
+          return {};
       }
-    };
+    });
 
-    q2.transition = (input) {
+    q2.setTransition((input) {
       switch (input) {
         case 'a':
           return {q3};
         default:
-          return <State>{};
+          return {};
       }
-    };
+    });
 
-    q3.transition = (_) => <State>{};
+    q3.setTransition((_) => {});
 
     final nfa3 = NFA(
       states: {q0, q1, q2, q3},

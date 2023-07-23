@@ -1,5 +1,11 @@
-import 'state.dart';
+import 'deterministic_state.dart';
+import 'non_deterministic_state.dart';
 
-typedef DeterministicTranstitionFunction = State Function(String input);
+typedef DeterministicTranstitionFunction = DeterministicState Function(
+  String input,
+);
 
-typedef NonDeterministicTranstitionFunction = Set<State> Function(String input);
+typedef NonDeterministicTranstitionFunction = Set<NonDeterministicState>
+    Function(
+  String input,
+);

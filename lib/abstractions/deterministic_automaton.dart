@@ -1,8 +1,8 @@
 import 'automaton.dart';
-import 'state.dart';
+import 'deterministic_state.dart';
 
-abstract class DeterministicAutomaton extends Automaton {
+abstract class DeterministicAutomaton extends Automaton<DeterministicState> {
   DeterministicAutomaton({required super.states, required super.alphabet});
 
-  State extendedTransition(State state, String input);
+  DeterministicState extendedTransition(DeterministicState state, String input);
 }
