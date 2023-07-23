@@ -1,5 +1,7 @@
 name: automatons
-description: Automatons
+description: Implementations of DFA, NFA and eNFA in Dart language
+# author: Pedro Lemos <lemozxpedro@gmail.com>
+homepage: https://github.com/pedrolemoz/automatons
 version: 1.0.0
 
 environment:
