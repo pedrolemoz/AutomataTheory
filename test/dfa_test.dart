@@ -1,6 +1,6 @@
-import 'package:automatons/abstractions/deterministic_state.dart';
-import 'package:automatons/abstractions/exceptions.dart';
-import 'package:automatons/implementations/dfa.dart';
+import 'package:automata_theory/abstractions/deterministic_state.dart';
+import 'package:automata_theory/abstractions/exceptions.dart';
+import 'package:automata_theory/implementations/dfa.dart';
 import 'package:test/test.dart';
 
 void main() {

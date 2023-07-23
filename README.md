@@ -1,4 +1,4 @@
-# Automatons
+# Automata Theory
 
 Implementations of some automatons in Dart.
 

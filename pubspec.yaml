@@ -1,7 +1,7 @@
-name: automatons
+name: automata_theory
 description: Implementations of DFA, NFA and eNFA in Dart language
 # author: Pedro Lemos <lemozxpedro@gmail.com>
-homepage: https://github.com/pedrolemoz/automatons
+homepage: https://github.com/pedrolemoz/automata_theory
 version: 1.0.0
 
 environment:

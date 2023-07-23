@@ -1,5 +1,5 @@
-import 'package:automatons/abstractions/non_deterministic_state.dart';
-import 'package:automatons/implementations/nfa.dart';
+import 'package:automata_theory/abstractions/non_deterministic_state.dart';
+import 'package:automata_theory/implementations/nfa.dart';
 import 'package:test/test.dart';
 
 void main() {

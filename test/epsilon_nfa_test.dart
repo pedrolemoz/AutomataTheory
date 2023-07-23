@@ -1,6 +1,6 @@
-import 'package:automatons/abstractions/constants.dart';
-import 'package:automatons/abstractions/non_deterministic_state.dart';
-import 'package:automatons/implementations/episilon_nfa.dart';
+import 'package:automata_theory/abstractions/constants.dart';
+import 'package:automata_theory/abstractions/non_deterministic_state.dart';
+import 'package:automata_theory/implementations/episilon_nfa.dart';
 import 'package:test/test.dart';
 
 void main() {
