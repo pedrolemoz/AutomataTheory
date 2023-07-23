@@ -1,7 +1,3 @@
-typedef DeterministicTranstitionFunction = State Function(String input);
-
-typedef NonDeterministicTranstitionFunction = Set<State> Function(String input);
-
 class State {
   final String name;
   final bool isInitial;

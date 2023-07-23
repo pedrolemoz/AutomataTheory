@@ -14,9 +14,8 @@ class DFA extends DeterministicAutomaton {
   @override
   State extendedTransition(State state, String input) {
     if (input.isEmpty) return state;
-    final transitionFunction = state.transition;
     return extendedTransition(
-      transitionFunction(input[0]),
+      state.transition(input[0]),
       input.substring(1),
     );
   }
