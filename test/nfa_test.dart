@@ -1,26 +1,38 @@
+import 'package:automatons/abstractions/state.dart';
 import 'package:automatons/implementations/nfa.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('NFA over the set {0, 1} that starts with the substring "10"', () {
-    const nfa1 = NFA(
-      states: ['q0', 'q1', 'q2'],
-      initialState: 'q0',
-      finalStates: ['q2'],
-      alphabet: ['0', '1'],
-      transitions: {
-        'q0': {
-          '1': ['q1']
-        },
-        'q1': {
-          '0': ['q2']
-        },
-        'q2': {
-          '1': ['q2'],
-          '0': ['q2']
-        },
-      },
+    final q0 = State(name: 'q0', isInitial: true);
+    final q1 = State(name: 'q1');
+    final q2 = State(name: 'q2', isFinal: true);
+
+    q0.transition = (input) {
+      switch (input) {
+        case '1':
+          return {q1};
+        default:
+          return <State>{};
+      }
+    };
+
+    q1.transition = (input) {
+      switch (input) {
+        case '0':
+          return {q2};
+        default:
+          return <State>{};
+      }
+    };
+
+    q2.transition = (_) => {q2};
+
+    final nfa1 = NFA(
+      states: {q0, q1, q2},
+      alphabet: {'0', '1'},
     );
+
     test('Should accept the string "10"', () {
       final result = nfa1.evaluate('10');
       expect(result, true);
@@ -68,22 +80,37 @@ void main() {
   });
 
   group('NFA over the set {0, 1} that ends with the substring "11"', () {
-    const nfa2 = NFA(
-      states: ['q0', 'q1', 'q2'],
-      initialState: 'q0',
-      finalStates: ['q2'],
-      alphabet: ['0', '1'],
-      transitions: {
-        'q0': {
-          '0': ['q0'],
-          '1': ['q0', 'q1']
-        },
-        'q1': {
-          '1': ['q2']
-        },
-        'q2': {},
-      },
+    final q0 = State(name: 'q0', isInitial: true);
+    final q1 = State(name: 'q1');
+    final q2 = State(name: 'q2', isFinal: true);
+
+    q0.transition = (input) {
+      switch (input) {
+        case '0':
+          return {q0};
+        case '1':
+          return {q0, q1};
+        default:
+          return <State>{};
+      }
+    };
+
+    q1.transition = (input) {
+      switch (input) {
+        case '1':
+          return {q2};
+        default:
+          return <State>{};
+      }
+    };
+
+    q2.transition = (_) => <State>{};
+
+    final nfa2 = NFA(
+      states: {q0, q1, q2},
+      alphabet: {'0', '1'},
     );
+
     test('Should accept the string "11"', () {
       final result = nfa2.evaluate('11');
       expect(result, true);
@@ -175,25 +202,47 @@ void main() {
   });
 
   group('NFA over the set {a, b} that ends with the substring "bba"', () {
-    const nfa3 = NFA(
-      states: ['q0', 'q1', 'q2', 'q3'],
-      initialState: 'q0',
-      finalStates: ['q3'],
-      alphabet: ['a', 'b'],
-      transitions: {
-        'q0': {
-          'a': ['q0'],
-          'b': ['q0', 'q1'],
-        },
-        'q1': {
-          'b': ['q2'],
-        },
-        'q2': {
-          'a': ['q3'],
-        },
-        'q3': {}
-      },
+    final q0 = State(name: 'q0', isInitial: true);
+    final q1 = State(name: 'q1');
+    final q2 = State(name: 'q2');
+    final q3 = State(name: 'q2', isFinal: true);
+
+    q0.transition = (input) {
+      switch (input) {
+        case 'a':
+          return {q0};
+        case 'b':
+          return {q0, q1};
+        default:
+          return <State>{};
+      }
+    };
+
+    q1.transition = (input) {
+      switch (input) {
+        case 'b':
+          return {q2};
+        default:
+          return <State>{};
+      }
+    };
+
+    q2.transition = (input) {
+      switch (input) {
+        case 'a':
+          return {q3};
+        default:
+          return <State>{};
+      }
+    };
+
+    q3.transition = (_) => <State>{};
+
+    final nfa3 = NFA(
+      states: {q0, q1, q2, q3},
+      alphabet: {'a', 'b'},
     );
+
     test('Should accept the string "bba"', () {
       final result = nfa3.evaluate('bba');
       expect(result, true);

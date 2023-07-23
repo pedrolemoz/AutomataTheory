@@ -1,13 +1,8 @@
 import '../abstractions/non_deterministic_automaton.dart';
+import '../abstractions/state.dart';
 
 class NFA extends NonDeterministicAutomaton {
-  const NFA({
-    required super.states,
-    required super.alphabet,
-    required super.transitions,
-    required super.initialState,
-    required super.finalStates,
-  });
+  NFA({required super.states, required super.alphabet});
 
   @override
   bool evaluate(String input) {
@@ -17,12 +12,12 @@ class NFA extends NonDeterministicAutomaton {
   }
 
   @override
-  List<String> extendedTransition(String state, String input) {
-    if (input.isEmpty) return [state];
-    final possibleNextStates = transitions[state]![input[0]];
-    if (possibleNextStates == null) return [];
+  Set<State> extendedTransition(State state, String input) {
+    if (input.isEmpty) return {state};
+    final possibleNextStates = state.transition(input[0]) as Set<State>;
+    if (possibleNextStates.isEmpty) return {};
     return possibleNextStates
         .map((nextState) => extendedTransition(nextState, input.substring(1)))
-        .reduce((a, b) => a += b);
+        .reduce((a, b) => {...a, ...b});
   }
 }

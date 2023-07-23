@@ -1,37 +1,85 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:automatons/abstractions/constants.dart';
+import 'package:automatons/abstractions/state.dart';
 import 'package:automatons/implementations/episilon_nfa.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const eNfa = EpsilonNFA(
-    states: ['q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7'],
-    initialState: 'q0',
-    finalStates: ['q4', 'q7'],
-    alphabet: ['a', 'b', 'c'],
-    transitions: {
-      'q0': {
-        epsilon: ['q1', 'q5'],
-      },
-      'q1': {
-        'a': ['q2'],
-      },
-      'q2': {
-        'b': ['q3'],
-      },
-      'q3': {
-        'c': ['q4'],
-      },
-      'q4': {},
-      'q5': {
-        'a': ['q5'],
-        'b': ['q5'],
-        'c': ['q5', 'q6'],
-      },
-      'q6': {
-        'c': ['q7'],
-      },
-      'q7': {},
-    },
+  final q0 = State(name: 'q0', isInitial: true);
+  final q1 = State(name: 'q1');
+  final q2 = State(name: 'q2');
+  final q3 = State(name: 'q3');
+  final q4 = State(name: 'q4', isFinal: true);
+  final q5 = State(name: 'q5');
+  final q6 = State(name: 'q6');
+  final q7 = State(name: 'q7', isFinal: true);
+
+  q0.transition = (input) {
+    switch (input) {
+      case epsilon:
+        return {q1, q5};
+      default:
+        return <State>{};
+    }
+  };
+
+  q1.transition = (input) {
+    switch (input) {
+      case 'a':
+        return {q2};
+      default:
+        return <State>{};
+    }
+  };
+
+  q2.transition = (input) {
+    switch (input) {
+      case 'b':
+        return {q3};
+      default:
+        return <State>{};
+    }
+  };
+
+  q3.transition = (input) {
+    switch (input) {
+      case 'c':
+        return {q4};
+      default:
+        return <State>{};
+    }
+  };
+
+  q4.transition = (input) => <State>{};
+
+  q5.transition = (input) {
+    switch (input) {
+      case 'a':
+        return {q5};
+      case 'b':
+        return {q5};
+      case 'c':
+        return {q5, q6};
+      default:
+        return <State>{};
+    }
+  };
+
+  q6.transition = (input) {
+    switch (input) {
+      case 'c':
+        return {q7};
+      default:
+        return <State>{};
+    }
+  };
+
+  q7.transition = (input) => <State>{};
+
+  final eNfa = EpsilonNFA(
+    states: {q0, q1, q2, q3, q4, q5, q6, q7},
+    alphabet: {'a', 'b', 'c'},
   );
 
   group(

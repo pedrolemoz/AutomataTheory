@@ -1,21 +1,67 @@
+import 'package:automatons/abstractions/invalid_input_exception.dart';
+import 'package:automatons/abstractions/state.dart';
 import 'package:automatons/implementations/dfa.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('DFA over the set {a, b} that contains the substring "aabb"', () {
-    const dfa1 = DFA(
-      states: ['q0', 'q1', 'q2', 'q3', 'q4'],
-      initialState: 'q0',
-      finalStates: ['q4'],
-      alphabet: ['a', 'b'],
-      transitions: {
-        'q0': {'a': 'q1', 'b': 'q0'},
-        'q1': {'a': 'q2', 'b': 'q0'},
-        'q2': {'a': 'q2', 'b': 'q3'},
-        'q3': {'a': 'q1', 'b': 'q4'},
-        'q4': {'a': 'q4', 'b': 'q4'},
-      },
+    final q0 = State(name: 'q0', isInitial: true);
+    final q1 = State(name: 'q1');
+    final q2 = State(name: 'q2');
+    final q3 = State(name: 'q3');
+    final q4 = State(name: 'q4', isFinal: true);
+
+    q0.transition = (input) {
+      switch (input) {
+        case 'a':
+          return q1;
+        case 'b':
+          return q0;
+        default:
+          throw InvalidInputException();
+      }
+    };
+
+    q1.transition = (input) {
+      switch (input) {
+        case 'a':
+          return q2;
+        case 'b':
+          return q0;
+        default:
+          throw InvalidInputException();
+      }
+    };
+
+    q2.transition = (input) {
+      switch (input) {
+        case 'a':
+          return q2;
+        case 'b':
+          return q3;
+        default:
+          throw InvalidInputException();
+      }
+    };
+
+    q3.transition = (input) {
+      switch (input) {
+        case 'a':
+          return q1;
+        case 'b':
+          return q4;
+        default:
+          throw InvalidInputException();
+      }
+    };
+
+    q4.transition = (_) => q4;
+
+    final dfa1 = DFA(
+      states: {q0, q1, q2, q3, q4},
+      alphabet: {'a', 'b'},
     );
+
     test('Should accept the string "aabb"', () {
       final result = dfa1.evaluate('aabb');
       expect(result, true);
@@ -80,18 +126,61 @@ void main() {
 
   group('DFA over the set {a, b} that does not contains the substring "aabb"',
       () {
-    const dfa2 = DFA(
-      states: ['q0', 'q1', 'q2', 'q3', 'q4'],
-      initialState: 'q0',
-      finalStates: ['q0', 'q1', 'q2', 'q3'],
-      alphabet: ['a', 'b'],
-      transitions: {
-        'q0': {'a': 'q1', 'b': 'q0'},
-        'q1': {'a': 'q2', 'b': 'q0'},
-        'q2': {'a': 'q2', 'b': 'q3'},
-        'q3': {'a': 'q1', 'b': 'q4'},
-        'q4': {'a': 'q4', 'b': 'q4'},
-      },
+    final q0 = State(name: 'q0', isFinal: true, isInitial: true);
+    final q1 = State(name: 'q1', isFinal: true);
+    final q2 = State(name: 'q2', isFinal: true);
+    final q3 = State(name: 'q3', isFinal: true);
+    final q4 = State(name: 'q4');
+
+    q0.transition = (input) {
+      switch (input) {
+        case 'a':
+          return q1;
+        case 'b':
+          return q0;
+        default:
+          throw InvalidInputException();
+      }
+    };
+
+    q1.transition = (input) {
+      switch (input) {
+        case 'a':
+          return q2;
+        case 'b':
+          return q0;
+        default:
+          throw InvalidInputException();
+      }
+    };
+
+    q2.transition = (input) {
+      switch (input) {
+        case 'a':
+          return q2;
+        case 'b':
+          return q3;
+        default:
+          throw InvalidInputException();
+      }
+    };
+
+    q3.transition = (input) {
+      switch (input) {
+        case 'a':
+          return q1;
+        case 'b':
+          return q4;
+        default:
+          throw InvalidInputException();
+      }
+    };
+
+    q4.transition = (_) => q4;
+
+    final dfa2 = DFA(
+      states: {q0, q1, q2, q3, q4},
+      alphabet: {'a', 'b'},
     );
 
     test('Should reject the string "aabb"', () {

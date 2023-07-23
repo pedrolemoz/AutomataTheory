@@ -1,17 +1,18 @@
-abstract class Automaton<TransitionsType> {
-  final List<String> states;
-  final List<String> alphabet;
-  final Map<String, Map<String, TransitionsType>> transitions;
-  final String initialState;
-  final List<String> finalStates;
+import 'state.dart';
 
-  const Automaton({
+abstract class Automaton {
+  final Set<State> states;
+  final Set<String> alphabet;
+  late final State initialState;
+  late final Set<State> finalStates;
+
+  Automaton({
     required this.states,
     required this.alphabet,
-    required this.transitions,
-    required this.initialState,
-    required this.finalStates,
-  });
+  }) {
+    initialState = states.firstWhere((state) => state.isInitial);
+    finalStates = states.where((state) => state.isFinal).toSet();
+  }
 
   bool hasValidInput(String input) {
     final symbols = input.split('');
@@ -19,6 +20,4 @@ abstract class Automaton<TransitionsType> {
   }
 
   bool evaluate(String input);
-
-  TransitionsType extendedTransition(String state, String input);
 }
