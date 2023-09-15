@@ -1,9 +1,9 @@
 class State {
   final String name;
-  final bool isInitial;
-  final bool isFinal;
+  bool isInitial;
+  bool isFinal;
 
-  const State({
+  State({
     required this.name,
     this.isInitial = false,
     this.isFinal = false,
