@@ -43,7 +43,7 @@ class EpsilonNFA extends EpsilonNonDeterministicAutomaton {
     if (possibleNextStates.isEmpty) return {state};
     return {
       state,
-      ...possibleNextStates.map(epsilonClosure).reduce((a, b) => {...a, ...b})
+      ...possibleNextStates.map(epsilonClosure).reduce((a, b) => {...a, ...b}),
     };
   }
 }

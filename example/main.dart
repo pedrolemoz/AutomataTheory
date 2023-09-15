@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:automata_theory/abstractions/constants.dart';
 import 'package:automata_theory/abstractions/non_deterministic_state.dart';
 import 'package:automata_theory/implementations/episilon_nfa.dart';
@@ -79,6 +81,7 @@ void main() {
     alphabet: {'a', 'b', 'c'},
   );
 
-  print(automaton.evaluate('abccc')); // true
-  print(automaton.evaluate('abaaabb')); // false
+  stdout
+    ..writeln(automaton.evaluate('abccc')) // true
+    ..writeln(automaton.evaluate('abaaabb')); // false
 }

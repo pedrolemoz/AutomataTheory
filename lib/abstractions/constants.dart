@@ -1,6 +1,6 @@
 const epsilon = 'ε';
 const sigma = 'Σ';
-const alphabet = [
+const alphabet = {
   'a',
   'b',
   'c',
@@ -32,4 +32,4 @@ const alphabet = [
   '"',
   ',',
   '-',
-];
+};
