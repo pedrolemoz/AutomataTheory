@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Alphabet is now UTF-8 characters
+
 ## 1.0.2
 
 - Initial and final state flags are now mutable
