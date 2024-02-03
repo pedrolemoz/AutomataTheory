@@ -1,4 +1,4 @@
-class State {
+abstract class State {
   final String name;
   bool isInitial;
   bool isFinal;
