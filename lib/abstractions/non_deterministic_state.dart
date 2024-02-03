@@ -3,7 +3,7 @@ import 'state.dart';
 import 'transitions.dart';
 
 class NonDeterministicState extends State {
-  NonDeterministicTranstitionFunction? _transition;
+  final _transitions = <NonDeterministicTranstitionFunction>[];
 
   NonDeterministicState({
     required super.name,
@@ -11,12 +11,16 @@ class NonDeterministicState extends State {
     super.isFinal,
   });
 
-  void setTransition(NonDeterministicTranstitionFunction transition) {
-    _transition = transition;
-  }
+  void setTransition(NonDeterministicTranstitionFunction transition) =>
+      _transitions.add(transition);
+
+  void setTransitions(List<NonDeterministicTranstitionFunction> transitions) =>
+      _transitions.addAll(transitions);
 
   Set<NonDeterministicState> executeTransition(String input) {
-    if (_transition == null) throw InvalidTransitionException();
-    return _transition!(input);
+    if (_transitions.isEmpty) throw InvalidTransitionException();
+    return _transitions
+        .map((transition) => transition(input))
+        .firstWhere((result) => result.isNotEmpty, orElse: () => {});
   }
 }
