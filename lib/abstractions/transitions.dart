@@ -6,6 +6,4 @@ typedef DeterministicTranstitionFunction = DeterministicState Function(
 );
 
 typedef NonDeterministicTranstitionFunction = Set<NonDeterministicState>
-    Function(
-  String input,
-);
+    Function(String input);
