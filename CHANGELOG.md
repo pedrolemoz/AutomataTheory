@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Changed how states are defined and handled internally
+
 ## 1.0.3
 
 - Alphabet is now UTF-8 characters
