@@ -1,5 +1,5 @@
+import 'package:automata_theory/abstractions/constants.dart';
 import 'package:automata_theory/abstractions/deterministic_state.dart';
-import 'package:automata_theory/abstractions/exceptions.dart';
 import 'package:automata_theory/implementations/dfa.dart';
 import 'package:test/test.dart';
 
@@ -11,51 +11,35 @@ void main() {
     final q3 = DeterministicState(name: 'q3');
     final q4 = DeterministicState(name: 'q4', isFinal: true);
 
-    q0.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return q1;
-        case 'b':
-          return q0;
-        default:
-          throw InvalidInputException();
-      }
-    });
+    q0.setTransitions(
+      [
+        MapEntry('a', q1),
+        MapEntry('b', q0),
+      ],
+    );
 
-    q1.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return q2;
-        case 'b':
-          return q0;
-        default:
-          throw InvalidInputException();
-      }
-    });
+    q1.setTransitions(
+      [
+        MapEntry('a', q2),
+        MapEntry('b', q0),
+      ],
+    );
 
-    q2.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return q2;
-        case 'b':
-          return q3;
-        default:
-          throw InvalidInputException();
-      }
-    });
+    q2.setTransitions(
+      [
+        MapEntry('a', q2),
+        MapEntry('b', q3),
+      ],
+    );
 
-    q3.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return q1;
-        case 'b':
-          return q4;
-        default:
-          throw InvalidInputException();
-      }
-    });
+    q3.setTransitions(
+      [
+        MapEntry('a', q1),
+        MapEntry('b', q4),
+      ],
+    );
 
-    q4.setTransition((_) => q4);
+    q4.setTransition(MapEntry(epsilon, q4));
 
     final dfa1 = DFA(
       states: {q0, q1, q2, q3, q4},
@@ -132,51 +116,35 @@ void main() {
     final q3 = DeterministicState(name: 'q3', isFinal: true);
     final q4 = DeterministicState(name: 'q4');
 
-    q0.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return q1;
-        case 'b':
-          return q0;
-        default:
-          throw InvalidInputException();
-      }
-    });
+    q0.setTransitions(
+      [
+        MapEntry('a', q1),
+        MapEntry('b', q0),
+      ],
+    );
 
-    q1.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return q2;
-        case 'b':
-          return q0;
-        default:
-          throw InvalidInputException();
-      }
-    });
+    q1.setTransitions(
+      [
+        MapEntry('a', q2),
+        MapEntry('b', q0),
+      ],
+    );
 
-    q2.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return q2;
-        case 'b':
-          return q3;
-        default:
-          throw InvalidInputException();
-      }
-    });
+    q2.setTransitions(
+      [
+        MapEntry('a', q2),
+        MapEntry('b', q3),
+      ],
+    );
 
-    q3.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return q1;
-        case 'b':
-          return q4;
-        default:
-          throw InvalidInputException();
-      }
-    });
+    q3.setTransitions(
+      [
+        MapEntry('a', q1),
+        MapEntry('b', q4),
+      ],
+    );
 
-    q4.setTransition((_) => q4);
+    q4.setTransition(MapEntry(epsilon, q4));
 
     final dfa2 = DFA(
       states: {q0, q1, q2, q3, q4},

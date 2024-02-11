@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:automata_theory/abstractions/constants.dart';
-import 'package:automata_theory/abstractions/non_deterministic_state.dart';
-import 'package:automata_theory/implementations/episilon_nfa.dart';
+import 'package:automata_theory/automatons.dart';
 
 void main() {
   final q0 = NonDeterministicState(name: 'q0', isInitial: true);
@@ -14,67 +12,21 @@ void main() {
   final q6 = NonDeterministicState(name: 'q6');
   final q7 = NonDeterministicState(name: 'q7', isFinal: true);
 
-  q0.setTransition((input) {
-    switch (input) {
-      case epsilon:
-        return {q1, q5};
-      default:
-        return {};
-    }
-  });
+  q0.setTransition(MapEntry(epsilon, {q1, q5}));
 
-  q1.setTransition((input) {
-    switch (input) {
-      case 'a':
-        return {q2};
-      default:
-        return {};
-    }
-  });
+  q1.setTransition(MapEntry('a', {q2}));
 
-  q2.setTransition((input) {
-    switch (input) {
-      case 'b':
-        return {q3};
-      default:
-        return {};
-    }
-  });
+  q2.setTransition(MapEntry('b', {q3}));
 
-  q3.setTransition((input) {
-    switch (input) {
-      case 'c':
-        return {q4};
-      default:
-        return {};
-    }
-  });
+  q3.setTransition(MapEntry('c', {q4}));
 
-  q4.setTransition((input) => {});
+  q5.setTransitions([
+    MapEntry('a', {q5}),
+    MapEntry('b', {q5}),
+    MapEntry('c', {q5, q6}),
+  ]);
 
-  q5.setTransition((input) {
-    switch (input) {
-      case 'a':
-        return {q5};
-      case 'b':
-        return {q5};
-      case 'c':
-        return {q5, q6};
-      default:
-        return {};
-    }
-  });
-
-  q6.setTransition((input) {
-    switch (input) {
-      case 'c':
-        return {q7};
-      default:
-        return {};
-    }
-  });
-
-  q7.setTransition((input) => {});
+  q6.setTransition(MapEntry('c', {q7}));
 
   final automaton = EpsilonNFA(
     states: {q0, q1, q2, q3, q4, q5, q6, q7},

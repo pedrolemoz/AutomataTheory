@@ -1,22 +1,22 @@
+import 'constants.dart';
 import 'exceptions.dart';
 import 'state.dart';
-import 'transitions.dart';
 
-class DeterministicState extends State {
-  DeterministicTranstitionFunction? _transition;
-
+class DeterministicState extends State<DeterministicState> {
   DeterministicState({
     required super.name,
     super.isInitial,
     super.isFinal,
   });
 
-  void setTransition(DeterministicTranstitionFunction transition) {
-    _transition = transition;
-  }
-
   DeterministicState executeTransition(String input) {
-    if (_transition == null) throw InvalidTransitionException();
-    return _transition!(input);
+    if (transitions.isEmpty) throw InvalidTransitionException();
+
+    final hasValidTransition =
+        transitions.containsKey(input) || transitions.containsKey(epsilon);
+
+    if (!hasValidTransition) throw InvalidInputException();
+
+    return transitions[input] ?? transitions[epsilon]!;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:automata_theory/abstractions/constants.dart';
 import 'package:automata_theory/abstractions/non_deterministic_state.dart';
 import 'package:automata_theory/implementations/nfa.dart';
 import 'package:test/test.dart';
@@ -8,25 +9,11 @@ void main() {
     final q1 = NonDeterministicState(name: 'q1');
     final q2 = NonDeterministicState(name: 'q2', isFinal: true);
 
-    q0.setTransition((input) {
-      switch (input) {
-        case '1':
-          return {q1};
-        default:
-          return {};
-      }
-    });
+    q0.setTransition(MapEntry('1', {q1}));
 
-    q1.setTransition((input) {
-      switch (input) {
-        case '0':
-          return {q2};
-        default:
-          return {};
-      }
-    });
+    q1.setTransition(MapEntry('0', {q2}));
 
-    q2.setTransition((_) => {q2});
+    q2.setTransition(MapEntry(epsilon, {q2}));
 
     final nfa1 = NFA(
       states: {q0, q1, q2},
@@ -84,27 +71,12 @@ void main() {
     final q1 = NonDeterministicState(name: 'q1');
     final q2 = NonDeterministicState(name: 'q2', isFinal: true);
 
-    q0.setTransition((input) {
-      switch (input) {
-        case '0':
-          return {q0};
-        case '1':
-          return {q0, q1};
-        default:
-          return {};
-      }
-    });
+    q0.setTransitions([
+      MapEntry('0', {q0}),
+      MapEntry('1', {q0, q1}),
+    ]);
 
-    q1.setTransition((input) {
-      switch (input) {
-        case '1':
-          return {q2};
-        default:
-          return {};
-      }
-    });
-
-    q2.setTransition((_) => {});
+    q1.setTransition(MapEntry('1', {q2}));
 
     final nfa2 = NFA(
       states: {q0, q1, q2},
@@ -207,36 +179,14 @@ void main() {
     final q2 = NonDeterministicState(name: 'q2');
     final q3 = NonDeterministicState(name: 'q2', isFinal: true);
 
-    q0.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return {q0};
-        case 'b':
-          return {q0, q1};
-        default:
-          return {};
-      }
-    });
+    q0.setTransitions([
+      MapEntry('a', {q0}),
+      MapEntry('b', {q0, q1}),
+    ]);
 
-    q1.setTransition((input) {
-      switch (input) {
-        case 'b':
-          return {q2};
-        default:
-          return {};
-      }
-    });
+    q1.setTransition(MapEntry('b', {q2}));
 
-    q2.setTransition((input) {
-      switch (input) {
-        case 'a':
-          return {q3};
-        default:
-          return {};
-      }
-    });
-
-    q3.setTransition((_) => {});
+    q2.setTransition(MapEntry('a', {q3}));
 
     final nfa3 = NFA(
       states: {q0, q1, q2, q3},
