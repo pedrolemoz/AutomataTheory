@@ -1,5 +1,5 @@
+import '../abstractions/automatons.dart';
 import '../abstractions/constants.dart';
-import '../abstractions/epsilon_non_deterministic_automaton.dart';
 import '../abstractions/states.dart';
 
 class EpsilonNFA extends EpsilonNonDeterministicAutomaton {

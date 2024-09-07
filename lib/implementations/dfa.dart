@@ -1,4 +1,4 @@
-import '../abstractions/deterministic_automaton.dart';
+import '../abstractions/automatons.dart';
 import '../abstractions/states.dart';
 
 class DFA extends DeterministicAutomaton {
