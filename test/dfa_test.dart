@@ -1,7 +1,8 @@
-import 'package:automata_theory/abstractions/constants.dart';
-import 'package:automata_theory/abstractions/deterministic_state.dart';
-import 'package:automata_theory/implementations/dfa.dart';
 import 'package:test/test.dart';
+
+import 'package:automata_theory/abstractions/constants.dart';
+import 'package:automata_theory/abstractions/states.dart';
+import 'package:automata_theory/implementations/dfa.dart';
 
 void main() {
   group('DFA over the set {a, b} that contains the substring "aabb"', () {

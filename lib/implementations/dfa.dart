@@ -1,5 +1,5 @@
 import '../abstractions/deterministic_automaton.dart';
-import '../abstractions/deterministic_state.dart';
+import '../abstractions/states.dart';
 
 class DFA extends DeterministicAutomaton {
   DFA({required super.states, required super.alphabet});

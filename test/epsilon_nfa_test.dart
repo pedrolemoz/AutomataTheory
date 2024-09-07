@@ -1,7 +1,8 @@
-import 'package:automata_theory/abstractions/constants.dart';
-import 'package:automata_theory/abstractions/non_deterministic_state.dart';
-import 'package:automata_theory/implementations/episilon_nfa.dart';
 import 'package:test/test.dart';
+
+import 'package:automata_theory/abstractions/constants.dart';
+import 'package:automata_theory/abstractions/states.dart';
+import 'package:automata_theory/implementations/episilon_nfa.dart';
 
 void main() {
   final q0 = NonDeterministicState(name: 'q0', isInitial: true);

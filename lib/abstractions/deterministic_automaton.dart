@@ -1,5 +1,5 @@
 import 'automaton.dart';
-import 'deterministic_state.dart';
+import 'states.dart';
 
 abstract class DeterministicAutomaton extends Automaton<DeterministicState> {
   DeterministicAutomaton({required super.states, required super.alphabet});

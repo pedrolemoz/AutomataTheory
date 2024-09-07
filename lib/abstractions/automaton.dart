@@ -1,4 +1,4 @@
-import 'state.dart';
+import 'states.dart';
 
 abstract class Automaton<StateType extends State> {
   final Set<StateType> states;

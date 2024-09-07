@@ -1,5 +1,5 @@
 import '../abstractions/non_deterministic_automaton.dart';
-import '../abstractions/non_deterministic_state.dart';
+import '../abstractions/states.dart';
 
 class NFA extends NonDeterministicAutomaton {
   NFA({required super.states, required super.alphabet});

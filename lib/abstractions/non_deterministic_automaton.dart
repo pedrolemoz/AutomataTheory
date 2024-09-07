@@ -1,5 +1,5 @@
 import 'automaton.dart';
-import 'non_deterministic_state.dart';
+import 'states.dart';
 
 abstract class NonDeterministicAutomaton
     extends Automaton<NonDeterministicState> {

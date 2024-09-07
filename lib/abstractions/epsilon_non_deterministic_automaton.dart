@@ -1,5 +1,5 @@
 import 'non_deterministic_automaton.dart';
-import 'non_deterministic_state.dart';
+import 'states.dart';
 
 abstract class EpsilonNonDeterministicAutomaton
     extends NonDeterministicAutomaton {

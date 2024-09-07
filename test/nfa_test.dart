@@ -1,7 +1,8 @@
-import 'package:automata_theory/abstractions/constants.dart';
-import 'package:automata_theory/abstractions/non_deterministic_state.dart';
-import 'package:automata_theory/implementations/nfa.dart';
 import 'package:test/test.dart';
+
+import 'package:automata_theory/abstractions/constants.dart';
+import 'package:automata_theory/abstractions/states.dart';
+import 'package:automata_theory/implementations/nfa.dart';
 
 void main() {
   group('NFA over the set {0, 1} that starts with the substring "10"', () {
