@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Removed whitespace in README
+
 ## 2.0.1
 
 - Minor changes in project structure
