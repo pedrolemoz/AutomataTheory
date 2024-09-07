@@ -92,7 +92,7 @@ void main() {
 ```dart
 // eNFA over the set {a, b, c} that is exactly the substring "abc" or ends with the substring "cc"
 void main() {
-    final q0 = NonDeterministicState(name: 'q0', isInitial: true);
+  final q0 = NonDeterministicState(name: 'q0', isInitial: true);
   final q1 = NonDeterministicState(name: 'q1');
   final q2 = NonDeterministicState(name: 'q2');
   final q3 = NonDeterministicState(name: 'q3');
