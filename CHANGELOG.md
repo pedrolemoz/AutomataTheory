@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Minor changes in project structure
+
 ## 2.0.0
 
 - Changed how states are defined and handled internally
