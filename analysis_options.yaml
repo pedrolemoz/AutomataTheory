@@ -1,6 +1,0 @@
-include: package:flutterando_analysis/flutter.yaml
-
-linter:
-  rules:
-    use_setters_to_change_properties: false
-    lines_longer_than_80_chars: false
