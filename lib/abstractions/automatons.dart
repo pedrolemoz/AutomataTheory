@@ -1,22 +1,33 @@
+import 'exceptions.dart';
 import 'states.dart';
 
 sealed class Automaton<StateType extends State> {
-  final Set<StateType> states;
-  final Set<String> alphabet;
+  final Set<StateType> _states;
+  final Set<String> _alphabet;
   late final StateType initialState;
-  late final Set<StateType> finalStates;
 
   Automaton({
-    required this.states,
-    required this.alphabet,
-  }) {
-    initialState = states.firstWhere((state) => state.isInitial);
-    finalStates = states.where((state) => state.isFinal).toSet();
+    required Set<StateType> states,
+    required Set<String> alphabet,
+  })  : _alphabet = alphabet,
+        _states = states {
+    try {
+      initialState = _states.singleWhere((state) => state.isInitial);
+    } catch (_) {
+      throw InvalidInitialStateException();
+    }
   }
+
+  Set<StateType> get finalStates =>
+      _states.where((state) => state.isFinal).toSet();
+
+  Set<StateType> get states => _states.toSet();
+
+  Set<String> get alphabet => _alphabet.toSet();
 
   bool hasValidInput(String input) {
     final symbols = input.split('');
-    return symbols.every(alphabet.contains);
+    return symbols.every(_alphabet.contains);
   }
 
   bool evaluate(String input);
@@ -24,18 +35,18 @@ sealed class Automaton<StateType extends State> {
   List<List<int>> get adjacencyMatrix {
     final matrix = <List<int>>[];
 
-    for (var idxA = 0; idxA < states.length; idxA++) {
+    for (var idxA = 0; idxA < _states.length; idxA++) {
       final row = <int>[];
 
-      final stateA = states.elementAt(idxA);
+      final stateA = _states.elementAt(idxA);
       final transitions = switch (this) {
         DeterministicAutomaton() => stateA.transitions.values,
         NonDeterministicAutomaton() =>
           stateA.transitions.values.expand((values) => values),
       };
 
-      for (var idxB = 0; idxB < states.length; idxB++) {
-        final stateB = states.elementAt(idxB);
+      for (var idxB = 0; idxB < _states.length; idxB++) {
+        final stateB = _states.elementAt(idxB);
         final quantity = transitions.where((state) => state == stateB).length;
 
         row.add(quantity);
