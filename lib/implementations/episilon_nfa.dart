@@ -1,6 +1,7 @@
 import '../abstractions/automatons.dart';
 import '../abstractions/constants.dart';
 import '../abstractions/states.dart';
+import '../abstractions/utils.dart';
 
 class EpsilonNFA extends EpsilonNonDeterministicAutomaton {
   EpsilonNFA({required super.states, required super.alphabet});
@@ -11,7 +12,7 @@ class EpsilonNFA extends EpsilonNonDeterministicAutomaton {
     final eClosure = epsilonClosure(initialState);
     final states = eClosure
         .map((closureState) => extendedTransition(closureState, input))
-        .reduce((a, b) => {...a, ...b});
+        .expand(identity);
     return states.any(finalStates.contains);
   }
 
@@ -32,9 +33,10 @@ class EpsilonNFA extends EpsilonNonDeterministicAutomaton {
                   input.substring(1),
                 ),
               )
-              .reduce((a, b) => {...a, ...b}),
+              .expand(identity),
         )
-        .reduce((a, b) => {...a, ...b});
+        .expand(identity)
+        .toSet();
   }
 
   @override
@@ -43,7 +45,7 @@ class EpsilonNFA extends EpsilonNonDeterministicAutomaton {
     if (possibleNextStates.isEmpty) return {state};
     return {
       state,
-      ...possibleNextStates.map(epsilonClosure).reduce((a, b) => {...a, ...b}),
+      ...possibleNextStates.map(epsilonClosure).expand(identity),
     };
   }
 }

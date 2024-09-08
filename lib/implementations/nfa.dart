@@ -1,5 +1,6 @@
 import '../abstractions/automatons.dart';
 import '../abstractions/states.dart';
+import '../abstractions/utils.dart';
 
 class NFA extends NonDeterministicAutomaton {
   NFA({required super.states, required super.alphabet});
@@ -21,6 +22,7 @@ class NFA extends NonDeterministicAutomaton {
     if (possibleNextStates.isEmpty) return {};
     return possibleNextStates
         .map((nextState) => extendedTransition(nextState, input.substring(1)))
-        .reduce((a, b) => {...a, ...b});
+        .expand(identity)
+        .toSet();
   }
 }
