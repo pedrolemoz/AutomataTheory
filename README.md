@@ -9,7 +9,7 @@ Current implementations:
 - Deterministic Finite Automaton (DFA)
 - Non-deterministic Finite Automaton (NFA)
 - Non-deterministic Automaton with Epsilon transitions (eNFA)
-
+- Adjacency Matrix for any Automaton
 
 ### Deterministic Finite Automaton
 

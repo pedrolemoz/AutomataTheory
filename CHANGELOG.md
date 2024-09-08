@@ -1,3 +1,8 @@
+## 2.1.0
+
+- State and Automaton classes are now sealed to take advantage of Exhaustiveness checking
+- Created a getter that returns an adjacency matrix based on the transitions
+
 ## 2.0.2
 
 - Removed whitespace in README
